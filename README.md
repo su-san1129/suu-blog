@@ -8,7 +8,7 @@
 1. リポジトリをクローンします。
 
 ```
-$ git clone https://github.com/your-username/blog-app.git
+$ git clone https://github.com/su-san1129/suu-blog.git
 ```
 
 2. 依存関係をインストールします。
