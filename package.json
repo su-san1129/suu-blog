@@ -1,0 +1,9 @@
+{
+  "name": "suu-blog",
+  "version": "1.0.0",
+  "scripts": {
+    "run:client": "pnpm --filter './apps/client' dev",
+    "run:server": "pnpm --filter './apps/server' dev"
+  },
+  "private": true
+}
