@@ -32,11 +32,11 @@ $ pnpm run:server
 
 ## 使用技術
 
-フロントエンド: React, TypeScript, Vite
-バックエンド: Node.js, TypeScript, Express
-データベース: MySQL
-パッケージマネージャー: pnpm
-インフラ: Docker
+フロントエンド: React, TypeScript, Vite  
+バックエンド: Node.js, TypeScript, Express  
+データベース: MySQL  
+パッケージマネージャー: pnpm  
+インフラ: Docker 
 
 ## 今後の予定
 
