@@ -6,6 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy
     steps:
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
+        
       - uses: actions/checkout@v4
       - name: Deploy app
         uses: cloudflare/wrangler-action@v3
