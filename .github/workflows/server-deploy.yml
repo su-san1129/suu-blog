@@ -34,12 +34,9 @@ jobs:
           key: ${{ runner.os }}-wrangler-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-wrangler-
-
+      - run: echo "ignore-workspace-root-check=true" >> .npmrc
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          workingDirectory: .
-          env: 
-            PNPM_FLAGS: --ignore-workspace-root-check=true
