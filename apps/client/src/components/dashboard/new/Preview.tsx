@@ -1,10 +1,10 @@
 import Markdown from "../../markdown/Markdown";
 import { ArticleFormItem } from "../types";
 
-type PreviewProps = {
+type Props = {
   formObject: ArticleFormItem;
 };
-const Preview: React.FC<PreviewProps> = ({ formObject }) => {
+const Preview: React.FC<Props> = ({ formObject }) => {
   return (
     <>
       <h1>{formObject.article.title}</h1>

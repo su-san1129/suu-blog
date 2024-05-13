@@ -7,29 +7,24 @@ import Preview from "./Preview";
 import { MyFormItem, MyFormItemGroup } from "../Form";
 
 type NewProps = {
-  formObject: ArticleFormItem;
-  onFormItemChange: (value: ArticleFormItem) => void;
+  handleChange: (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
 };
-const New: React.FC<NewProps> = ({ formObject, onFormItemChange }) => {
+const New: React.FC<NewProps> = ({ handleChange }) => {
   const onFinish = (value: object) => {
     console.log(value);
   };
-
-  const onItemChange = (e: any, name: string) => {
-    const { article } = formObject;
-    onFormItemChange({
-      article: { ...article, [name]: e.target.value },
-    } as ArticleFormItem);
-  };
-
   return (
     <Form name="form_item_path" layout="vertical" onFinish={onFinish}>
       <MyFormItemGroup prefix={["article"]}>
         <MyFormItem name="title" label="タイトル">
-          <Input onChange={(e) => onItemChange(e, "title")} />
+          <Input id="title" onChange={handleChange} />
         </MyFormItem>
         <MyFormItem name="body" label="記事内容">
-          <TextArea rows={24} onChange={(e) => onItemChange(e, "body")} />
+          <TextArea id="body" rows={24} onChange={handleChange} />
         </MyFormItem>
       </MyFormItemGroup>
 
@@ -44,13 +39,27 @@ const NewArticle = () => {
   const [formObject, setFormObject] = useState<ArticleFormItem>({
     article: { title: undefined, body: undefined },
   });
+
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { id, value } = e.target;
+
+    setFormObject({
+      article: {
+        ...formObject.article,
+        [id]: value,
+      },
+    });
+  };
+
   const items: TabsProps["items"] = [
     {
       key: "1",
       label: "入稿",
-      children: (
-        <New formObject={formObject} onFormItemChange={setFormObject} />
-      ),
+      children: <New handleChange={handleChange} />,
     },
     {
       key: "2",
