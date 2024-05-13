@@ -1,17 +1,42 @@
 name: Deploy Server
-on: workflow_dispatch
-
+on:
+  workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy
-
+    defaults:
+      run:
+        working-directory: apps/server
+        shell: bash
     steps:
       - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          run_install: true # この行を追加
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - run: pnpm install
+
+      - uses: actions/cache@v4
+        name: Cache Wrangler
+        with:
+          path: ~/.wrangler
+          key: ${{ runner.os }}-wrangler-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-wrangler-
+
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          packageManager: pnpm
-          workingDirectory: apps/server
