@@ -6,7 +6,6 @@ const Article = ({ title, body }: Props) => (
   <div
     style={{
       padding: 24,
-      margin: "8px 0",
       minHeight: 380,
       background: "#fff",
       borderRadius: "12px",
