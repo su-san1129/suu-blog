@@ -1,5 +1,5 @@
 import "./App.css";
-import { Layout, theme, Menu, Row, Col } from "antd";
+import { Layout } from "antd";
 import { SWRConfig } from "swr";
 import { fetcher } from "./api/fetcher";
 import Content from "./components/layout/Content";
