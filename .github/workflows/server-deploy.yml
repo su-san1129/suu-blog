@@ -11,29 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 8
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - run: pnpm install
-
-      - uses: actions/cache@v4
-        name: Cache Wrangler
-        with:
-          path: ~/.wrangler
-          key: ${{ runner.os }}-wrangler-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-wrangler-
-
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          packageManager: pnpm
