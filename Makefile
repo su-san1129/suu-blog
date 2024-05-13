@@ -1,4 +1,4 @@
-.PHONY: build up down
+.PHONY: db-build db-rebuild db-up db-down
 
 db-build:
 	docker-compose -f infra/database/docker-compose.yml build
@@ -11,7 +11,3 @@ db-up:
 
 db-down:
 	docker-compose -f infra/database/docker-compose.yml down
-
-install:
-	cd apps/server && pnpm install
-	cd apps/client && pnpm install
