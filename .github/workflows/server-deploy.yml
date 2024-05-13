@@ -5,9 +5,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy
-    defaults:
-      run:
-        working-directory: apps/server
 
     steps:
       - uses: actions/checkout@v3
@@ -17,3 +14,4 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           packageManager: pnpm
+          workingDirectory: apps/server
