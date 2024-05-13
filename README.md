@@ -14,7 +14,7 @@ $ git clone https://github.com/su-san1129/suu-blog.git
 2. 依存関係をインストールします。
 
 ```
-$ make install
+$ pnpm install
 ```
 
 3. データベースを起動します。
