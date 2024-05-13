@@ -41,3 +41,5 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: .
+          env: 
+            PNPM_FLAGS: --ignore-workspace-root-check=true
