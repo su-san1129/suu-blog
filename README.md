@@ -8,7 +8,7 @@
 1. リポジトリをクローンします。
 
 ```
-$ git clone https://github.com/your-username/blog-app.git
+$ git clone https://github.com/su-san1129/suu-blog.git
 ```
 
 2. 依存関係をインストールします。
@@ -32,11 +32,11 @@ $ pnpm run:server
 
 ## 使用技術
 
-フロントエンド: React, TypeScript, Vite
-バックエンド: Node.js, TypeScript, Express
-データベース: MySQL
-パッケージマネージャー: pnpm
-インフラ: Docker
+フロントエンド: React, TypeScript, Vite  
+バックエンド: Node.js, TypeScript, Express  
+データベース: MySQL  
+パッケージマネージャー: pnpm  
+インフラ: Docker 
 
 ## 今後の予定
 
