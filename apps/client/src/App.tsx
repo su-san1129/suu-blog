@@ -3,6 +3,8 @@ import { Layout } from "antd";
 import { SWRConfig } from "swr";
 import { fetcher } from "./api/fetcher";
 import Content from "./components/layout/Content";
+import Logo from "./components/layout/Logo";
+
 const { Header, Footer } = Layout;
 
 function App() {
@@ -11,7 +13,7 @@ function App() {
       <Layout>
         <Header style={{ display: "flex", alignItems: "center" }}>
           <div className="header" style={{ color: "white" }}>
-            Suu blog
+            <Logo />
           </div>
         </Header>
         <Content />
