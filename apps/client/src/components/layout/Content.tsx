@@ -1,5 +1,6 @@
 import { Layout, Row, Col, Menu, Grid } from "antd";
 import ArticleList from "../article/ArticleList";
+import { Outlet } from "react-router-dom";
 const { Content: AntContent } = Layout;
 const { useBreakpoint } = Grid;
 
@@ -8,12 +9,12 @@ const Content = () => {
 
   const items = [
     {
-      key: "grp",
-      label: "Group",
+      key: "date",
+      label: "日付",
       type: "group",
       children: [
-        { key: "13", label: "Option 13" },
-        { key: "14", label: "Option 14" },
+        { key: "1", label: "2024年5月 (1)" },
+        { key: "2", label: "2024年4月 (2)" },
       ],
     },
   ];
@@ -21,11 +22,7 @@ const Content = () => {
   if (Boolean(screens.xs)) {
     return (
       <AntContent style={{ marginTop: "8px" }}>
-        <Row justify="center">
-          <Col span="22">
-            <ArticleList />
-          </Col>
-        </Row>
+        <Outlet />
       </AntContent>
     );
   }
@@ -34,7 +31,7 @@ const Content = () => {
     <AntContent style={{ marginTop: "8px" }}>
       <Row justify="center">
         <Col span="14">
-          <ArticleList />
+          <Outlet />
         </Col>
         <Col span="4">
           <div

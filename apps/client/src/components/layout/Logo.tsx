@@ -1,4 +1,5 @@
 import { Image, Grid } from "antd";
+import { Link } from "react-router-dom";
 
 const Logo = () => {
   const { useBreakpoint } = Grid;
@@ -7,13 +8,15 @@ const Logo = () => {
   const width = Boolean(screens.xs) ? "100px" : "150px";
 
   return (
-    <Image
-      width={width}
-      src="/images/logo.png"
-      className="logo"
-      alt="logo"
-      preview={false}
-    />
+    <Link to="/">
+      <Image
+        width={width}
+        src="/images/logo.png"
+        className="logo"
+        alt="logo"
+        preview={false}
+      />
+    </Link>
   );
 };
 

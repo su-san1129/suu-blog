@@ -6,12 +6,24 @@ import "./index.css";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import NewArticle from "./components/dashboard/new/NewArticle.tsx";
+import ArticleList from "./components/article/ArticleList.tsx";
+import Article from "./components/article/Article.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <ArticleList />,
+      },
+      {
+        path: "articles/:id",
+        element: <Article />,
+      },
+    ],
   },
   {
     path: "/dashboard",
