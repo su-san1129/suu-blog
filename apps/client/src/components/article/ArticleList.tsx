@@ -1,12 +1,11 @@
 import useSWR from "swr";
-import { Card } from "antd";
+import { Card, Tag } from "antd";
 import {
   removeMarkdownSpecialChars,
   scliceString,
 } from "../../utils/stringUtil";
 import { Link } from "react-router-dom";
-
-const DISPLAY_BODY_LIMIT = 200;
+import { format } from "@formkit/tempo";
 
 const ArticleList = () => {
   const { data, isLoading } = useSWR("/api/articles");
@@ -14,24 +13,36 @@ const ArticleList = () => {
 
   return (data || []).map((d) => (
     <Link key={d.id} to={`articles/${d.id}`}>
-      <Card title={d.title} style={{ marginBottom: "8px" }} hoverable>
+      <Card
+        title={
+          <div style={{ margin: "4px 0" }}>
+            <span style={{ color: "grey", fontSize: "0.8rem" }}>
+              {format(d.createdAt, "long")}
+            </span>
+            <div>{d.title}</div>
+          </div>
+        }
+        style={{ marginBottom: "8px" }}
+        hoverable
+      >
         <div
           style={{
-            marginTop: 16,
-            maxHeight: DISPLAY_BODY_LIMIT,
             overflow: "hidden",
+            display: "-webkit-box",
+            textOverflow: "ellipsis",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 3,
           }}
         >
-          {removeMarkdownSpecialChars(scliceString(d.body, DISPLAY_BODY_LIMIT))}
+          {scliceString(removeMarkdownSpecialChars(d.body))}
         </div>
-        {d.body.length > DISPLAY_BODY_LIMIT && (
-          <Link
-            style={{ display: "block", marginTop: 16 }}
-            to={`articles/${d.id}`}
-          >
-            Read more
-          </Link>
-        )}
+        <div style={{ marginTop: "8px" }}>
+          {d.tags.map(({ name, color }) => (
+            <Tag key={name} color={color}>
+              {name}
+            </Tag>
+          ))}
+        </div>
       </Card>
     </Link>
   ));

@@ -1,4 +1,4 @@
-const scliceString = (str: string, limit: number) =>
+const scliceString = (str: string, limit: number = 500) =>
   str.length <= limit ? str : `${str.slice(0, limit)}...`;
 
 const MD_CHARS = [
