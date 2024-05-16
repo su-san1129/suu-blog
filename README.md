@@ -8,7 +8,7 @@ https://suu-blog.pages.dev/
 
 ## 構成
 
-![image](https://github.com/su-san1129/suu-blog/assets/48959170/23d5c781-8b50-4f21-8e73-82f18384c76d)
+![suu-blog-deploy-flow (2)](https://github.com/su-san1129/suu-blog/assets/48959170/1a70f37f-d455-41f9-becf-e7d98827b48e)
 
 ## 開発環境のセットアップ
 
