@@ -8,7 +8,7 @@ const Preview: React.FC<Props> = ({ formObject }) => {
   return (
     <>
       <h1>{formObject.article.title}</h1>
-      <Markdown text={formObject.article.body!} />
+      <Markdown text={formObject.article.content!} />
     </>
   );
 };

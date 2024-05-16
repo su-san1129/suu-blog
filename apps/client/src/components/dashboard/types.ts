@@ -1,7 +1,7 @@
 type ArticleFormItem = {
   article: {
     title?: string;
-    body?: string;
+    content?: string;
   };
 };
 

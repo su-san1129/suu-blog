@@ -34,10 +34,10 @@ const ArticleList = () => {
             WebkitLineClamp: 3,
           }}
         >
-          {scliceString(removeMarkdownSpecialChars(d.body))}
+          {scliceString(removeMarkdownSpecialChars(d.content))}
         </div>
         <div style={{ marginTop: "8px" }}>
-          {d.tags.map(({ name, color }) => (
+          {(d.tags || []).map(({ name, color }) => (
             <Tag key={name} color={color}>
               {name}
             </Tag>

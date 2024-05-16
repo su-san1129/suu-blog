@@ -1,0 +1,60 @@
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["driverAdapters"]
+}
+
+model Article {
+    id              String            @id @default(uuid())
+    title           String
+    content         String
+    createdAt       DateTime          @default(now())
+    updatedAt       DateTime          @default(now())
+    publishedAt     DateTime          @default(now())
+    ArticleCategory ArticleCategory[]
+    Commet          Commet[]
+    ArticleTag      ArticleTag[]
+}
+
+model Category {
+    id              String            @id @default(uuid())
+    name            String            @unique
+    ArticleCategory ArticleCategory[]
+}
+
+model ArticleCategory {
+    article    Article  @relation(fields: [articleId], references: [id])
+    articleId  String
+    category   Category @relation(fields: [categoryId], references: [id])
+    categoryId String
+
+    @@id([articleId, categoryId])
+}
+
+model Commet {
+    id        String   @id @default(uuid())
+    articleId String
+    article   Article  @relation(fields: [articleId], references: [id])
+    content   String
+    createdAt DateTime @default(now())
+}
+
+model Tag {
+    id         String       @id @default(uuid())
+    name       String       @unique
+    color      String
+    ArticleTag ArticleTag[]
+}
+
+model ArticleTag {
+    article   Article @relation(fields: [articleId], references: [id])
+    articleId String
+    tag       Tag     @relation(fields: [tagId], references: [id])
+    tagId     String
+
+    @@id([articleId, tagId])
+}

@@ -34,13 +34,13 @@ const Article = () => {
         }
       >
         <div style={{ marginTop: "8px" }}>
-          {article.tags.map(({ name, color }) => (
+          {(article.tags || []).map(({ name, color }) => (
             <Tag key={name} color={color}>
               {name}
             </Tag>
           ))}
         </div>
-        <Markdown text={article.body} />
+        <Markdown text={article.content} />
       </Card>
       <Link to={"/"}>
         <Button type="text">{`< Back`}</Button>

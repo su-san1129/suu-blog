@@ -23,8 +23,8 @@ const New: React.FC<NewProps> = ({ handleChange }) => {
         <MyFormItem name="title" label="タイトル">
           <Input id="title" onChange={handleChange} />
         </MyFormItem>
-        <MyFormItem name="body" label="記事内容">
-          <TextArea id="body" rows={24} onChange={handleChange} />
+        <MyFormItem name="content" label="記事内容">
+          <TextArea id="content" rows={24} onChange={handleChange} />
         </MyFormItem>
       </MyFormItemGroup>
 
@@ -37,7 +37,7 @@ const New: React.FC<NewProps> = ({ handleChange }) => {
 
 const NewArticle = () => {
   const [formObject, setFormObject] = useState<ArticleFormItem>({
-    article: { title: undefined, body: undefined },
+    article: { title: undefined, content: undefined },
   });
 
   const handleChange = (
