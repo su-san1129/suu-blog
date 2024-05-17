@@ -15,7 +15,7 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - name: "set up wrangler.toml"
+      - name: "setup wrangler.toml"
         env:
           DATABASE_NAME: ${{ secrets.D1_DATABASE_NAME }}
           DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
@@ -26,6 +26,11 @@ jobs:
           echo "database_id = \"${DATABASE_ID}\"" >> ./apps/server/wrangler.toml
           echo "migrations_dir = \"./infra/migrations/\"" >> ./apps/server/wrangler.toml
           cat ./apps/server/wrangler.toml
+
+      - name: setup dependencies
+        run: |
+          pnpm install
+          pnpm dlx prisma generate
 
       - name: Deploy app
         uses: cloudflare/wrangler-action@v3
