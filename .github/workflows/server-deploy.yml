@@ -14,6 +14,18 @@ jobs:
           version: 8
 
       - uses: actions/checkout@v4
+
+      - name: "set up wrangler.toml"
+        env:
+          DATABASE_NAME: ${{ secrets.D1_DATABASE_NAME }}
+          DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+        run: |
+          echo '[[d1_databases]]' > wrangler.toml
+          echo 'binding = "DB"' >> wrangler.toml
+          echo "database_name = \\"$DATABASE_NAME\\"" >> wrangler.toml
+          echo "database_id = \\"$DATABASE_ID\\"" >> wrangler.toml
+          echo 'migrations_dir = "./infra/migrations/"' >> wrangler.toml
+
       - name: Deploy app
         uses: cloudflare/wrangler-action@v3
         with:
