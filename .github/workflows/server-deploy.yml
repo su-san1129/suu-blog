@@ -7,15 +7,18 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: Deploy
     steps:
       - uses: pnpm/action-setup@v4
         with:
           version: 8
 
       - uses: actions/checkout@v4
+      - run: |
+          cd ./apps/server
+          pnpm install
+          pnpm dlx prisma generate
 
-      - name: "setup wrangler.toml"
+      - name: setup wrangler.toml
         env:
           DATABASE_NAME: ${{ secrets.D1_DATABASE_NAME }}
           DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
@@ -25,14 +28,6 @@ jobs:
           echo "database_name = \"${DATABASE_NAME}\"" >> ./apps/server/wrangler.toml
           echo "database_id = \"${DATABASE_ID}\"" >> ./apps/server/wrangler.toml
           echo "migrations_dir = \"./infra/migrations/\"" >> ./apps/server/wrangler.toml
-          cat ./apps/server/wrangler.toml
-
-      - name: setup dependencies
-        run: |
-          pwd
-          cd ./apps/server
-          pnpm install
-          pnpm dlx prisma generate
 
       - name: Deploy app
         uses: cloudflare/wrangler-action@v3
