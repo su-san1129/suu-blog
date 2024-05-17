@@ -5,7 +5,7 @@ CREATE TABLE "Article" (
     "content" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "publishedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "publishedAt" DATETIME
 );
 
 -- CreateTable
@@ -25,12 +25,12 @@ CREATE TABLE "ArticleCategory" (
 );
 
 -- CreateTable
-CREATE TABLE "Commet" (
+CREATE TABLE "Comment" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "articleId" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT "Commet_articleId_fkey" FOREIGN KEY ("articleId") REFERENCES "Article" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Comment_articleId_fkey" FOREIGN KEY ("articleId") REFERENCES "Article" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

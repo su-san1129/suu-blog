@@ -14,9 +14,9 @@ model Article {
     content         String
     createdAt       DateTime          @default(now())
     updatedAt       DateTime          @default(now())
-    publishedAt     DateTime          @default(now())
+    publishedAt     DateTime?
     ArticleCategory ArticleCategory[]
-    Commet          Commet[]
+    Comment         Comment[]
     ArticleTag      ArticleTag[]
 }
 
@@ -35,7 +35,7 @@ model ArticleCategory {
     @@id([articleId, categoryId])
 }
 
-model Commet {
+model Comment {
     id        String   @id @default(uuid())
     articleId String
     article   Article  @relation(fields: [articleId], references: [id])
