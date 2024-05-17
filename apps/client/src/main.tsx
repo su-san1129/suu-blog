@@ -1,17 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "./index.css";
-import ErrorPage from "./pages/ErrorPage.tsx";
-import Dashboard from "./pages/Dashboard.tsx";
-import NewArticle from "./components/dashboard/new/NewArticle.tsx";
-import ArticleList from "./components/article/ArticleList.tsx";
-import Article from "./components/article/Article.tsx";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.tsx'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import './index.css'
+import ErrorPage from './pages/ErrorPage.tsx'
+import Dashboard from './pages/Dashboard.tsx'
+import NewArticle from './components/dashboard/new/NewArticle.tsx'
+import ArticleList from './components/article/ArticleList.tsx'
+import Article from './components/article/Article.tsx'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
@@ -20,25 +20,25 @@ const router = createBrowserRouter([
         element: <ArticleList />,
       },
       {
-        path: "articles/:id",
+        path: 'articles/:id',
         element: <Article />,
       },
     ],
   },
   {
-    path: "/dashboard",
+    path: '/dashboard',
     element: <Dashboard />,
     children: [
       {
-        path: "new",
+        path: 'new',
         element: <NewArticle />,
       },
     ],
   },
-]);
+])
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
-);
+)

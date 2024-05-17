@@ -1,8 +1,8 @@
 type ArticleFormItem = {
   article: {
-    title?: string;
-    content?: string;
-  };
-};
+    title?: string
+    content?: string
+  }
+}
 
-export type { ArticleFormItem };
+export type { ArticleFormItem }

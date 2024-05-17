@@ -1,16 +1,16 @@
-import Markdown from "../../markdown/Markdown";
-import { ArticleFormItem } from "../types";
+import Markdown from '../../markdown/Markdown'
+import { ArticleFormItem } from '../types'
 
 type Props = {
-  formObject: ArticleFormItem;
-};
+  formObject: ArticleFormItem
+}
 const Preview: React.FC<Props> = ({ formObject }) => {
   return (
     <>
       <h1>{formObject.article.title}</h1>
       <Markdown text={formObject.article.content!} />
     </>
-  );
-};
+  )
+}
 
-export default Preview;
+export default Preview
