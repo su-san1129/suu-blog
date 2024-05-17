@@ -13,12 +13,14 @@ jobs:
           version: 8
 
       - uses: actions/checkout@v4
-      - run: |
-          cd ./apps/server
+
+      - name: Install Dependencies
+        run: |
           pnpm install
           pnpm dlx prisma generate
+        working-directory: ./apps/server
 
-      - name: setup wrangler.toml
+      - name: Setup wrangler.toml
         env:
           DATABASE_NAME: ${{ secrets.D1_DATABASE_NAME }}
           DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
