@@ -20,12 +20,12 @@ jobs:
           DATABASE_NAME: ${{ secrets.D1_DATABASE_NAME }}
           DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
         run: |
-          echo "[[d1_databases]]" >> wrangler.toml
-          echo "binding = \"DB\"" >> wrangler.toml
-          echo "database_name = \"${DATABASE_NAME}\"" >> wrangler.toml
-          echo "database_id = \"${DATABASE_ID}\"" >> wrangler.toml
-          echo "migrations_dir = \"./infra/migrations/\"" >> wrangler.toml
-          cat wrangler.toml
+          echo "[[d1_databases]]" >> ./apps/server/wrangler.toml
+          echo "binding = \"DB\"" >> ./apps/server/wrangler.toml
+          echo "database_name = \"${DATABASE_NAME}\"" >> ./apps/server/wrangler.toml
+          echo "database_id = \"${DATABASE_ID}\"" >> ./apps/server/wrangler.toml
+          echo "migrations_dir = \"./infra/migrations/\"" >> ./apps/server/wrangler.toml
+          cat ./apps/server/wrangler.toml
 
       - name: Deploy app
         uses: cloudflare/wrangler-action@v3
