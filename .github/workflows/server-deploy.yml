@@ -29,6 +29,8 @@ jobs:
 
       - name: setup dependencies
         run: |
+          pwd
+          cd ./apps/server
           pnpm install
           pnpm dlx prisma generate
 
