@@ -1,5 +1,5 @@
 const baseUrl =
-  import.meta.env.VITE_BASE_API_URL || "http://localhost:8787/api";
+  `${import.meta.env.VITE_BASE_API_URL}/api` || "http://localhost:8787/api";
 const createUrl = (endpoint: string) =>
   endpoint.startsWith("/") ? `${baseUrl}${endpoint}` : `${baseUrl}/${endpoint}`;
 
