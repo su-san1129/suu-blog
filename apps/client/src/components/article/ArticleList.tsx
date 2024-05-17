@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { format } from "@formkit/tempo";
 
 const ArticleList = () => {
-  const { data, isLoading } = useSWR("/api/articles");
+  const { data, isLoading } = useSWR("articles");
   if (isLoading) return <>is loading...</>;
 
   return (data || []).map((d) => (

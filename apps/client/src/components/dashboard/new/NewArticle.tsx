@@ -5,6 +5,8 @@ import TextArea from "antd/es/input/TextArea";
 import { ArticleFormItem } from "../types";
 import Preview from "./Preview";
 import { MyFormItem, MyFormItemGroup } from "../Form";
+import { Article } from "@suu-blog/types";
+import { post } from "../../../api/fetcher";
 
 type NewProps = {
   handleChange: (
@@ -14,8 +16,11 @@ type NewProps = {
   ) => void;
 };
 const New: React.FC<NewProps> = ({ handleChange }) => {
-  const onFinish = (value: object) => {
-    console.log(value);
+  const onFinish = ({ article }: { article: Article }) => {
+    if (!article.title || !article.content) {
+      return;
+    }
+    post("/articles", article);
   };
   return (
     <Form name="form_item_path" layout="vertical" onFinish={onFinish}>

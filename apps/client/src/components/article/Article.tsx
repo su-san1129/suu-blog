@@ -6,7 +6,7 @@ import { format } from "@formkit/tempo";
 
 const Article = () => {
   const { id } = useParams();
-  const { data, isLoading } = useSWR("/api/articles");
+  const { data, isLoading } = useSWR("/articles");
 
   if (isLoading) {
     return <>is loading...</>;

@@ -6,7 +6,7 @@ const app = new Hono();
 app.use(
 	cors({
 		origin: ['https://suu-blog.pages.dev', 'http://localhost:5173'],
-		allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
+		allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'Content-Type'],
 		allowMethods: ['POST', 'GET', 'OPTIONS'],
 		exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
 		maxAge: 600,

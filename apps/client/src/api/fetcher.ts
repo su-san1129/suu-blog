@@ -1,8 +1,22 @@
-const fetcher = async (url: string) => {
-  const baseUrl = import.meta.env.VITE_BASE_API_URL || "http://localhost:8787";
-  const response = await fetch(`${baseUrl}${url}`);
+const baseUrl =
+  import.meta.env.VITE_BASE_API_URL || "http://localhost:8787/api";
+const createUrl = (endpoint: string) =>
+  endpoint.startsWith("/") ? `${baseUrl}${endpoint}` : `${baseUrl}/${endpoint}`;
+
+const fetcher = async (endpoint: string) => {
+  const response = await fetch(createUrl(endpoint));
   const data = await response.json();
   return data;
 };
 
-export { fetcher };
+const post = (endpoint: string, value: any) => {
+  return fetch(createUrl(endpoint), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(value),
+  });
+};
+
+export { fetcher, post };
