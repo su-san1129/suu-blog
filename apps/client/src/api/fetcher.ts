@@ -1,5 +1,6 @@
-const baseUrl = `${import.meta.env.VITE_BASE_API_URL}/api` || 'http://localhost:8787/api'
-const createUrl = (endpoint: string) => (endpoint.startsWith('/') ? `${baseUrl}${endpoint}` : `${baseUrl}/${endpoint}`)
+const baseUrl = import.meta.env.VITE_BASE_API_URL || 'http://localhost:8787'
+const createUrl = (endpoint: string) =>
+  endpoint.startsWith('/') ? `${baseUrl}/api${endpoint}` : `${baseUrl}/api/${endpoint}`
 
 const fetcher = async (endpoint: string) => {
   const response = await fetch(createUrl(endpoint))

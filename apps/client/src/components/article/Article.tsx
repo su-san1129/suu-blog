@@ -3,20 +3,21 @@ import Markdown from '../markdown/Markdown'
 import useSWR from 'swr'
 import { Link, useParams } from 'react-router-dom'
 import { format } from '@formkit/tempo'
+import { Article as ArticleType } from '@suu-blog/types'
 
 const Article = () => {
   const { id } = useParams()
-  const { data, isLoading } = useSWR('/articles')
+  const { data, isLoading } = useSWR<{ article: ArticleType }>(`/articles/${id}`)
 
   if (isLoading) {
     return <>is loading...</>
   }
 
-  const article = data.find((_) => _.id == id)
-
-  if (!article) {
+  if (!data?.article) {
     return <>記事が存在しません。</>
   }
+
+  const { article } = data
 
   return (
     <>
@@ -32,9 +33,9 @@ const Article = () => {
         }
       >
         <div style={{ marginTop: '8px' }}>
-          {(article.tags || []).map(({ name, color }) => (
-            <Tag key={name} color={color}>
-              {name}
+          {article.articleTags?.map(({ tag }) => (
+            <Tag key={tag.id} color={tag.color}>
+              {tag.name}
             </Tag>
           ))}
         </div>

@@ -9,21 +9,21 @@ generator client {
 }
 
 model Article {
-    id              String            @id @default(uuid())
-    title           String
-    content         String
-    createdAt       DateTime          @default(now())
-    updatedAt       DateTime          @default(now())
-    publishedAt     DateTime?
-    ArticleCategory ArticleCategory[]
-    Comment         Comment[]
-    ArticleTag      ArticleTag[]
+    id                String            @id @default(uuid())
+    title             String
+    content           String
+    createdAt         DateTime          @default(now())
+    updatedAt         DateTime          @default(now())
+    publishedAt       DateTime?
+    articleCategories ArticleCategory[]
+    comments          Comment[]
+    articleTags       ArticleTag[]
 }
 
 model Category {
     id              String            @id @default(uuid())
     name            String            @unique
-    ArticleCategory ArticleCategory[]
+    articleCategory ArticleCategory[]
 }
 
 model ArticleCategory {
@@ -44,10 +44,10 @@ model Comment {
 }
 
 model Tag {
-    id         String       @id @default(uuid())
-    name       String       @unique
-    color      String
-    ArticleTag ArticleTag[]
+    id          String       @id @default(uuid())
+    name        String       @unique
+    color       String
+    articleTags ArticleTag[]
 }
 
 model ArticleTag {

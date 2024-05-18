@@ -1,8 +1,8 @@
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
-import articleRoutes from './routes/articleRoutes';
+import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+import articleRoutes from './routes/articleRoutes'
 
-const app = new Hono();
+const app = new Hono()
 app.use(
 	cors({
 		origin: ['https://suu-blog.pages.dev', 'http://localhost:5173'],
@@ -12,9 +12,9 @@ app.use(
 		maxAge: 600,
 		credentials: true,
 	})
-);
-app.get('/', (c) => c.text('Hello 🔥'));
+)
+app.get('/', (c) => c.text('Hello 🔥'))
 
-app.route('/api', articleRoutes);
+app.route('/api', articleRoutes)
 
-export default app;
+export default app

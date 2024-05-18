@@ -1,15 +1,11 @@
 import { z } from "zod";
+import * as Schema from "./schema";
 
-const ArticleSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  content: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  publishedAt: z.date(),
-});
+type Article = z.infer<typeof Schema.ArticleSchema>;
+type Category = z.infer<typeof Schema.CategorySchema>;
+type ArticleCategory = z.infer<typeof Schema.ArticleCategorySchema>;
+type Comment = z.infer<typeof Schema.CommentSchema>;
+type Tag = z.infer<typeof Schema.TagScheam>;
+type ArticleTag = z.infer<typeof Schema.ArticleTagSchema>;
 
-type Article = z.infer<typeof ArticleSchema>;
-
-export type { Article };
-export { ArticleSchema };
+export type { Article, Category, ArticleCategory, Comment, Tag, ArticleTag };
