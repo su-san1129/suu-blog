@@ -6,7 +6,17 @@ const articleRoutes = new Hono()
 
 articleRoutes.get('/', async (c) => {
 	const prisma = getPrisma(c)
-	return c.json(await prisma.article.findMany({ include: { articleTags: { include: { tag: true } } } }))
+	return c.json(
+		await prisma.article.findMany({
+			include: {
+				articleTags: {
+					include: {
+						tag: true,
+					},
+				},
+			},
+		})
+	)
 })
 
 articleRoutes.get('/:id', async (c) => {
@@ -30,32 +40,27 @@ articleRoutes.get('/:id', async (c) => {
 
 articleRoutes.post('/', async (c) => {
 	const prisma = getPrisma(c)
-	try {
-		const { title, content, tags } = await c.req.json<CreateArticleRequest>()
-		const article = await prisma.article.create({
-			data: {
-				title,
-				content,
-				articleTags: {
-					create: tags.map(({ id, name, color }) => ({
-						tag: id ? { connect: { id } } : { create: { name, color } },
-					})),
+	const { title, content, tags } = await c.req.json<CreateArticleRequest>()
+	const article = await prisma.article.create({
+		data: {
+			title,
+			content,
+			articleTags: {
+				create: tags.map(({ id, name, color }) => ({
+					tag: id ? { connect: { id } } : { create: { name, color } },
+				})),
+			},
+		},
+		include: {
+			articleTags: {
+				include: {
+					tag: true,
 				},
 			},
-			include: {
-				articleTags: {
-					include: {
-						tag: true,
-					},
-				},
-			},
-		})
-		console.log('insert into', article)
-		return c.json({ ok: true })
-	} catch (e) {
-		console.log(e)
-		return c.json({ error: 'error', ok: false })
-	}
+		},
+	})
+	console.log('insert into', article)
+	return c.json({ ok: true })
 })
 
 export default articleRoutes

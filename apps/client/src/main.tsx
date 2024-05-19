@@ -10,6 +10,9 @@ import ArticleList from './components/article/ArticleList.tsx'
 import Article from './components/article/Article.tsx'
 import { fetcher } from './api/fetcher.ts'
 import { SWRConfig } from 'swr'
+import { AuthProvider } from './context/AuthProvider.tsx'
+import AuthenticatedRoute from './components/auth/AuthenticatedRoute.tsx'
+import Login from './components/auth/Login.tsx'
 
 const router = createBrowserRouter([
   {
@@ -28,8 +31,12 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: '/login',
+    element: <Login />,
+  },
+  {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: <AuthenticatedRoute component={Dashboard} />,
     children: [
       {
         path: 'new',
@@ -42,7 +49,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <SWRConfig value={{ fetcher }}>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </SWRConfig>
   </React.StrictMode>
 )
