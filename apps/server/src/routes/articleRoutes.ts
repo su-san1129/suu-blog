@@ -4,12 +4,12 @@ import { CreateArticleRequest } from '@suu-blog/types/request'
 
 const articleRoutes = new Hono()
 
-articleRoutes.get('/articles', async (c) => {
+articleRoutes.get('/', async (c) => {
 	const prisma = getPrisma(c)
 	return c.json(await prisma.article.findMany({ include: { articleTags: { include: { tag: true } } } }))
 })
 
-articleRoutes.get('/articles/:id', async (c) => {
+articleRoutes.get('/:id', async (c) => {
 	const prisma = getPrisma(c)
 	const id = c.req.param('id')
 	const article = await prisma.article.findFirst({
@@ -28,7 +28,7 @@ articleRoutes.get('/articles/:id', async (c) => {
 	return c.json({ article, ok: true })
 })
 
-articleRoutes.post('/articles', async (c) => {
+articleRoutes.post('/', async (c) => {
 	const prisma = getPrisma(c)
 	try {
 		const { title, content, tags } = await c.req.json<CreateArticleRequest>()

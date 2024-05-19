@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import articleRoutes from './routes/articleRoutes'
+import tagRoutes from './routes/tagRoutes'
 
 const app = new Hono()
 app.use(
@@ -15,6 +16,6 @@ app.use(
 )
 app.get('/', (c) => c.text('Hello 🔥'))
 
-app.route('/api', articleRoutes)
+app.route('/api').route('/articles', articleRoutes).route('/tags', tagRoutes)
 
 export default app
