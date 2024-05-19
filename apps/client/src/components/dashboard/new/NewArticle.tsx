@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Input, Select, Tabs } from 'antd'
 import type { SelectProps, TabsProps } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
@@ -6,13 +6,23 @@ import { ArticleFormItem } from '../types'
 import Preview from './Preview'
 import { MyFormItem, MyFormItemGroup } from '../Form'
 import { post } from '../../../api/fetcher'
+import useSWR from 'swr'
+import { Tag } from '@suu-blog/types'
 
 type NewProps = {
   onSubmit: () => void
   handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 const New: React.FC<NewProps> = ({ onSubmit, handleChange }) => {
-  const options: SelectProps['options'] = []
+  const [options, setOptions] = useState<SelectProps['options']>([])
+  const { data } = useSWR<{ tags: Tag[] }>('/tags')
+
+  useEffect(() => {
+    if (data) {
+      setOptions(data.tags.map(({ name }) => ({ value: name, label: name })))
+    }
+  }, [data])
+
   return (
     <Form name="form_item_path" layout="vertical" onFinish={onSubmit}>
       <MyFormItemGroup prefix={['article']}>
@@ -22,12 +32,12 @@ const New: React.FC<NewProps> = ({ onSubmit, handleChange }) => {
         <MyFormItem name="content" label="記事内容">
           <TextArea id="content" rows={24} onChange={handleChange} />
         </MyFormItem>
-        <MyFormItem name="tags" label="記事内容">
+        <MyFormItem name="tags" label="タグ">
           <Select
             id="tags"
             mode="tags"
             style={{ width: '100%' }}
-            placeholder="Tags Mode"
+            placeholder="タグを追加"
             onChange={(e) =>
               handleChange({
                 target: {

@@ -7,7 +7,7 @@ tagRoutes.get('/', async (c) => {
 	const prisma = getPrisma(c)
 	const tags = await prisma.tag.findMany()
 
-	c.json({ tags })
+	return c.json({ tags })
 })
 
 export default tagRoutes
