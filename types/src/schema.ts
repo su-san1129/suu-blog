@@ -35,8 +35,8 @@ const ArticleSchema = z.object({
   content: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
-  publishedAt: z.date(),
-  articleTags: z.array(ArticleTagSchema),
+  publishedAt: z.date().optional(),
+  articleTags: z.array(ArticleTagSchema).optional(),
 });
 
 export {
