@@ -1,20 +1,21 @@
 import React, { useContext, useState } from 'react'
 import AuthContext from '../../context/AuthProvider'
 import { Button, Card, Col, Input, Row } from 'antd'
-// import { post } from '../../api/fetcher'
+import { post } from '../../api/fetcher'
 import Logo from '../layout/Logo'
 import { useNavigate } from 'react-router-dom'
 
 const Login: React.FC = () => {
   const { login } = useContext(AuthContext)
   const navigate = useNavigate()
-  const [password, setPassword] = useState<string>()
+  const [password, setPassword] = useState<string>('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // const res = await post('/login', { password })
-    if (password === 'test') {
+    const res = await post('/login', { password })
+    if (res.ok) {
       login()
+      localStorage.setItem('accessToken', password)
       navigate('/dashboard')
     } else {
       console.log('ng')

@@ -38,3 +38,5 @@ jobs:
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           packageManager: pnpm
           workingDirectory: apps/server
+          env:
+            API_KEY: ${{ secrets.API_KEY }}
