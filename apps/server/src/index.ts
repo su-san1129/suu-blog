@@ -23,6 +23,7 @@ app.get('/', (c) => c.text('Hello 🔥'))
 
 app.post('/api/login', async (c) => {
 	const { password } = await c.req.json<{ password: string }>()
+	console.log('debug', c.env.API_KEY)
 	return password === c.env.API_KEY ? c.json({ ok: true }) : c.json({ ok: false }, 400)
 })
 
