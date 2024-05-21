@@ -17,13 +17,12 @@ type AuthProviderProps = {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(Boolean(localStorage.getItem('isAuthenticated')))
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true')
 
   useEffect(() => {
     localStorage.setItem('isAuthenticated', isAuthenticated.toString())
   }, [isAuthenticated])
   const login = () => {
-    console.log('hoge')
     setIsAuthenticated(true)
   }
 
