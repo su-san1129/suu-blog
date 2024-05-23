@@ -39,8 +39,17 @@ articleRoutes.get('/:id', async (c) => {
 })
 
 articleRoutes.post('/', async (c) => {
+	const header = c.req.header()
+	if (header['authorization'] !== c.env?.API_KEY) {
+		return c.json({ ok: false, error: 'No authrization header' }, 401)
+	}
+
 	const prisma = getPrisma(c)
 	const { title, content, tags } = await c.req.json<CreateArticleRequest>()
+	if (!(title || content || tags)) {
+		return c.json({ ok: false }, 400)
+	}
+
 	const article = await prisma.article.create({
 		data: {
 			title,
