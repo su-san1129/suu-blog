@@ -8,13 +8,14 @@ import { Article } from '@suu-blog/types'
 const ArticleList = () => {
   const { data: articles, isLoading } = useSWR<Article[]>('articles')
   if (isLoading) return <>is loading...</>
+  console.log(articles)
 
   return articles?.map(({ id, title, content, articleTags, createdAt }) => (
     <Link key={id} to={`articles/${id}`}>
       <Card
         title={
           <div style={{ margin: '4px 0' }}>
-            <span style={{ color: 'grey', fontSize: '0.8rem' }}>{format(createdAt, 'long')}</span>
+            <span style={{ color: 'grey', fontSize: '0.8rem' }}>{format(createdAt, 'long', 'ja-JP')}</span>
             <div>{title}</div>
           </div>
         }

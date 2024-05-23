@@ -7,19 +7,23 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@formkit/tempo": "^0.1.1",
+    "@suu-blog/types": "file:../../types",
     "antd": "^5.17.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.23.1",
-    "swr": "^2.2.5",
-    "@suu-blog/types": "file:../../types"
+    "swr": "^2.2.5"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.5",
+    "@testing-library/react": "^15.0.7",
+    "@types/jest": "^29.5.12",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "@types/react-router-dom": "^5.3.3",
@@ -29,8 +33,11 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "jsdom": "^24.0.0",
+    "msw": "^2.3.0",
     "react-syntax-highlighter": "^15.5.0",
     "typescript": "^5.4.5",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vitest": "1.3.0"
   }
 }
