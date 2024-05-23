@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Form, Input, Select, Tabs } from 'antd'
 import type { SelectProps, TabsProps } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
-import { ArticleFormItem } from '../types'
+import { ArticleFormItem } from './types'
 import Preview from './Preview'
-import { MyFormItem, MyFormItemGroup } from '../Form'
-import { post } from '../../../api/fetcher'
+import { MyFormItem, MyFormItemGroup } from './Form'
+import { post } from '../../api/fetcher'
 import useSWR from 'swr'
 import { Tag } from '@suu-blog/types'
+import AuthContext from '../../context/AuthProvider'
 
 type NewProps = {
   onSubmit: () => void
-  handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
+  handleChange: (e: { target: { id: string; value: any } }) => void
 }
 const New: React.FC<NewProps> = ({ onSubmit, handleChange }) => {
   const [options, setOptions] = useState<SelectProps['options']>([])
@@ -22,6 +23,23 @@ const New: React.FC<NewProps> = ({ onSubmit, handleChange }) => {
       setOptions(data.tags.map(({ name }) => ({ value: name, label: name })))
     }
   }, [data])
+
+  function select(values: string[]) {
+    handleChange({
+      target: {
+        id: 'tags',
+        value: values!.map((v) => {
+          const found = data?.tags.find((tag) => tag.name === v)
+          return (
+            found || {
+              name: v,
+              color: 'cyan',
+            }
+          )
+        }),
+      },
+    })
+  }
 
   return (
     <Form name="form_item_path" layout="vertical" onFinish={onSubmit}>
@@ -38,14 +56,7 @@ const New: React.FC<NewProps> = ({ onSubmit, handleChange }) => {
             mode="tags"
             style={{ width: '100%' }}
             placeholder="タグを追加"
-            onChange={(e) =>
-              handleChange({
-                target: {
-                  id: 'tags',
-                  value: e.map((name: string) => ({ name, color: 'cyan' })),
-                },
-              } as React.ChangeEvent<HTMLInputElement>)
-            }
+            onChange={select}
             options={options}
           />
         </MyFormItem>
@@ -59,8 +70,9 @@ const New: React.FC<NewProps> = ({ onSubmit, handleChange }) => {
 }
 
 const NewArticle = () => {
+  const { accessToken } = useContext(AuthContext)
   const [formObject, setFormObject] = useState<ArticleFormItem>({
-    article: { title: undefined, content: undefined },
+    article: { title: undefined, content: undefined, tags: [] },
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -79,7 +91,7 @@ const NewArticle = () => {
       console.warn('no value')
       return
     }
-    post('/articles', formObject.article)
+    post('/articles', formObject.article, { Authorization: accessToken })
   }
 
   const items: TabsProps['items'] = [

@@ -1,5 +1,5 @@
-import Markdown from '../../markdown/Markdown'
-import { ArticleFormItem } from '../types'
+import Markdown from '../markdown/Markdown'
+import { ArticleFormItem } from './types'
 
 type Props = {
   formObject: ArticleFormItem

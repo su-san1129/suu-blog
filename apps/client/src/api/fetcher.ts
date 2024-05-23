@@ -8,11 +8,12 @@ const fetcher = async (endpoint: string) => {
   return data
 }
 
-const post = (endpoint: string, value: any) => {
+const post = (endpoint: string, value: any, headers?: object) => {
   return fetch(createUrl(endpoint), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      ...headers,
     },
     body: JSON.stringify(value),
   })
