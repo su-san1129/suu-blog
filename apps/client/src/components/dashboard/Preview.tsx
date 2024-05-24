@@ -7,8 +7,8 @@ type Props = {
 const Preview: React.FC<Props> = ({ formObject }) => {
   return (
     <>
-      <h1>{formObject.article.title}</h1>
-      <Markdown text={formObject.article.content!} />
+      <h1>{formObject.title}</h1>
+      <Markdown text={formObject.content!} />
     </>
   )
 }

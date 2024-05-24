@@ -2,6 +2,7 @@ import type { MenuProps } from 'antd'
 import { Layout, Menu, theme } from 'antd'
 const { Header, Content, Sider } = Layout
 import { Outlet, Link } from 'react-router-dom'
+import Logo from '../components/layout/Logo'
 
 const items1: MenuProps['items'] = ['新規', '編集'].map((key, i) => ({
   key: i + 1,
@@ -16,9 +17,7 @@ const Dashboard = () => {
   return (
     <Layout>
       <Header style={{ display: 'flex', alignItems: 'center' }}>
-        <div className="demo-logo" style={{ color: 'white' }}>
-          Suu blog
-        </div>
+        <Logo />
       </Header>
       <Layout>
         <Sider width={200} style={{ background: colorBgContainer }}>
