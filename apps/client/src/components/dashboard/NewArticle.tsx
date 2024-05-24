@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Form, Input, Select, Tabs, message } from 'antd'
+import { Button, Checkbox, Form, Input, Select, Tabs, message } from 'antd'
 import type { SelectProps, TabsProps } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
 import { ArticleFormItem } from './types'
@@ -60,6 +60,14 @@ const New: React.FC<NewProps> = ({ formObject, onSubmit, handleChange }) => {
           value={formObject.tags.map(({ name }) => name)}
         />
       </Form.Item>
+      <Form.Item>
+        <Checkbox
+          onChange={(e) => handleChange({ target: { id: 'isPublish', value: e.target.checked } })}
+          checked={formObject.isPublish}
+        >
+          公開する
+        </Checkbox>
+      </Form.Item>
       <Button type="primary" htmlType="submit">
         投稿
       </Button>
@@ -69,7 +77,10 @@ const New: React.FC<NewProps> = ({ formObject, onSubmit, handleChange }) => {
 
 const NewArticle = () => {
   const { accessToken } = useContext(AuthContext)
-  const [formObject, setFormObject] = useState<ArticleFormItem>({ title: '', content: '', tags: [] })
+  const draft = localStorage.getItem('draft')
+  const [formObject, setFormObject] = useState<ArticleFormItem>(
+    draft ? (JSON.parse(draft) as ArticleFormItem) : { title: '', content: '', tags: [], isPublish: false }
+  )
   const [messageApi, contextHolder] = message.useMessage()
 
   const handleChange = (e: { target: { id: string; value: any } }) => {
@@ -94,7 +105,7 @@ const NewArticle = () => {
           content: '投稿しました',
         })
 
-        setFormObject({ title: '', content: '', tags: [] })
+        setFormObject({ title: '', content: '', tags: [], isPublish: false })
       })
       .catch((e) => {
         messageApi.open({
@@ -117,6 +128,10 @@ const NewArticle = () => {
       children: <Preview formObject={formObject} />,
     },
   ]
+
+  useEffect(() => {
+    localStorage.setItem('draft', JSON.stringify(formObject))
+  }, [formObject])
 
   return (
     <>
