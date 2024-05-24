@@ -1,8 +1,5 @@
 name: Deploy Server
-on:
-  push:
-    branches:
-      - "main"
+on: workflow_call
 
 jobs:
   deploy:
