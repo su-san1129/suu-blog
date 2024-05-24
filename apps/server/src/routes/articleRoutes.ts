@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { getPrisma } from '../context'
 import { CreateArticleRequest } from '@suu-blog/types/request'
+import { Article } from '@suu-blog/types'
 
 const articleRoutes = new Hono()
 
@@ -69,6 +70,37 @@ articleRoutes.post('/', async (c) => {
 		},
 	})
 	console.log('insert into', article)
+	return c.json({ ok: true })
+})
+
+articleRoutes.put('/:id', async (c) => {
+	const header = c.req.header()
+	if (header['authorization'] !== c.env?.API_KEY) {
+		return c.json({ ok: false, error: 'No authrization header' }, 401)
+	}
+	const prisma = getPrisma(c)
+	const { title, content, tags, isPublish } = await c.req.json<CreateArticleRequest>()
+	prisma.article.update({
+		where: {
+			id: c.req.param('id'),
+		},
+		data: {
+			title,
+			content,
+			articleTags: {
+				create: tags.map(({ id, name, color }) => ({
+					tag: id ? { connect: { id } } : { create: { name, color } },
+				})),
+			},
+		},
+		include: {
+			articleTags: {
+				include: {
+					tag: true,
+				},
+			},
+		},
+	})
 	return c.json({ ok: true })
 })
 
