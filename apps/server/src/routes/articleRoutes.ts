@@ -101,7 +101,18 @@ articleRoutes.put('/:id', async (c) => {
 			},
 		},
 	})
-	return c.json({ ok: true })
+	return c.json({ ok: true }, 204)
+})
+
+articleRoutes.delete('/:id', async (c) => {
+	const header = c.req.header()
+	if (header['authorization'] !== c.env?.API_KEY) {
+		return c.json({ ok: false, error: 'No authrization header' }, 401)
+	}
+	const prisma = getPrisma(c)
+	await prisma.article.delete({ where: { id: c.req.param('id') } })
+
+	return c.json({ ok: true }, 202)
 })
 
 export default articleRoutes
