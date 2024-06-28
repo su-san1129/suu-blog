@@ -13,6 +13,7 @@ import { SWRConfig } from 'swr'
 import { AuthProvider } from './context/AuthProvider.tsx'
 import AuthenticatedRoute from './components/auth/AuthenticatedRoute.tsx'
 import Login from './components/auth/Login.tsx'
+import EditArticleList from './components/dashboard/EditArticle.tsx'
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: 'new',
         element: <NewArticle />,
+      },
+      {
+        path: 'edit',
+        element: <EditArticleList />,
       },
     ],
   },

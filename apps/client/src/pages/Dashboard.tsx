@@ -4,9 +4,12 @@ const { Header, Content, Sider } = Layout
 import { Outlet, Link } from 'react-router-dom'
 import Logo from '../components/layout/Logo'
 
-const items1: MenuProps['items'] = ['新規', '編集'].map((key, i) => ({
+const items1: MenuProps['items'] = [
+  { label: '新規', to: 'new' },
+  { label: '編集', to: 'edit' },
+].map(({ label, to }, i) => ({
   key: i + 1,
-  label: <Link to="new">{key}</Link>,
+  label: <Link to={to}>{label}</Link>,
 }))
 
 const Dashboard = () => {
