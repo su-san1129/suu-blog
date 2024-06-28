@@ -110,8 +110,30 @@ articleRoutes.delete('/:id', async (c) => {
 		return c.json({ ok: false, error: 'No authrization header' }, 401)
 	}
 	const prisma = getPrisma(c)
-	await prisma.article.delete({ where: { id: c.req.param('id') } })
+	const articleId = c.req.param('id')
 
+	try {
+		await prisma.$transaction([
+			prisma.articleCategory.deleteMany({
+				where: { articleId: articleId },
+			}),
+			prisma.comment.deleteMany({
+				where: { articleId: articleId },
+			}),
+			prisma.articleTag.deleteMany({
+				where: { articleId: articleId },
+			}),
+			prisma.article.delete({
+				where: { id: articleId },
+			}),
+		])
+
+		console.log('Article and related records deleted successfully.')
+	} catch (error) {
+		console.error('Error deleting article and related records:', error)
+	} finally {
+		await prisma.$disconnect()
+	}
 	return c.json({ ok: true }, 202)
 })
 

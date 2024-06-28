@@ -19,4 +19,13 @@ const post = (endpoint: string, value: any, headers?: object) => {
   })
 }
 
-export { fetcher, post }
+const del = (endpoint: string, value: any, headers?: object) => {
+  return fetch(createUrl(`${endpoint}/${value}`), {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+    },
+  })
+}
+
+export { fetcher, post, del }

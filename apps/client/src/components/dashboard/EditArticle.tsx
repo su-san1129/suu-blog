@@ -2,9 +2,13 @@ import { Button, Table } from 'antd'
 import useSWR from 'swr'
 import { Article } from '@suu-blog/types'
 import { format } from '@formkit/tempo'
+import { del, post } from '../../api/fetcher'
+import { useContext } from 'react'
+import AuthContext from '../../context/AuthProvider'
 
 const EditArticleList = () => {
   const { data: articles, isLoading } = useSWR<Article[]>('articles')
+  const { accessToken } = useContext(AuthContext)
 
   if (isLoading) {
     return <>is loading...</>
@@ -32,10 +36,10 @@ const EditArticleList = () => {
       title: 'アクション',
       dataIndex: 'action',
       key: 'action',
-      render: () => (
+      render: (_, record) => (
         <>
           <Button style={{ marginRight: '4px' }}>編集</Button>
-          <Button>削除</Button>
+          <Button onClick={() => del('/articles', record.key, { Authorization: accessToken })}>削除</Button>
         </>
       ),
     },

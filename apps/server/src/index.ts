@@ -13,7 +13,7 @@ app.use(
 	cors({
 		origin: ['https://suu-blog.pages.dev', 'http://localhost:5173'],
 		allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'Content-Type', 'Authorization'],
-		allowMethods: ['POST', 'GET', 'OPTIONS'],
+		allowMethods: ['POST', 'GET', 'PUT', 'DELETE', 'OPTIONS'],
 		exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
 		maxAge: 600,
 		credentials: true,
